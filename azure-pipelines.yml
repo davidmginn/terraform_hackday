@@ -11,14 +11,26 @@ pr:
 
 pool:
   vmImage: Ubuntu-16.04
+
 steps:
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
-  displayName: 'Use Terraform 0.11.11'
+  displayName: 'Use Terraform 0.11.13'
+  inputs:
+    terraformVersion: 0.11.13
 
+steps:
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
   displayName: 'terraform init'
   inputs:
     command: init
+    backendType: azurerm
+    backendServiceArm: 'MSDN (9e9ce436-a21c-4409-a484-57e1a609fa92)'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: TerraformDeployments
+    backendAzureRmResourceGroupLocation: EastUS
+    backendAzureRmStorageAccountName: tfdeployments
+    backendAzureRmContainerName: tfdeployments
+    backendAzureRmKey: prod.terraform.tfstate
 
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
   displayName: 'terraform validate'
