@@ -1,6 +1,18 @@
 # Configure the Azure provider
 provider "azurerm" { }
 
+terraform {
+  backend "azurerm" {
+    storage_account_name = "tfdeployments"
+    container_name       = "tfdeployments"
+    key                  = "prod.terraform.tfstate"
+
+    # rather than defining this inline, the Access Key can also be sourced
+    # from an Environment Variable - more information is available below.
+    access_key = "zNl/E02gFjcTaFw14AQa1Q8xOYNDBAV2fhYnAZ4sDMGBJ0eHhfX0Asr4wfsQF9gPnIWhN7+wSvimQYhQ4UAcbQ=="
+  }
+}
+
 resource "azurerm_resource_group" "slotDemo" {
     name = "slotDemoResourceGroup"
     location = "westus2"
