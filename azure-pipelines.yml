@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- davidmginn/yaml_pipeline
+- master
 
 pr:
 - master
