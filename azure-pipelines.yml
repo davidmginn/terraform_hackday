@@ -6,14 +6,44 @@
 trigger:
 - master
 
+pr:
+- master
+
 pool:
-  vmImage: 'Ubuntu-16.04'
+  vmImage: Ubuntu-16.04
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+  displayName: 'Use Terraform 0.11.13'
+  inputs:
+    terraformVersion: 0.11.13
+    
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform init'
+  inputs:
+    command: init
+    backendType: azurerm
+    backendServiceArm: 'MSDN (9e9ce436-a21c-4409-a484-57e1a609fa92)'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: TerraformDeployments
+    backendAzureRmResourceGroupLocation: EastUS
+    backendAzureRmStorageAccountName: tfdeployments
+    backendAzureRmContainerName: tfdeployments
+    backendAzureRmKey: prod.terraform.tfstate
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform validate'
+
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform plan'
+  inputs:
+    command: plan
+    environmentServiceName: 'MSDN (9e9ce436-a21c-4409-a484-57e1a609fa92)'
+
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform apply'
+  inputs:
+    command: apply
+    environmentServiceName: 'MSDN (9e9ce436-a21c-4409-a484-57e1a609fa92)'
+
+
