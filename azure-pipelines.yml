@@ -17,8 +17,7 @@ steps:
   displayName: 'Use Terraform 0.11.13'
   inputs:
     terraformVersion: 0.11.13
-
-steps:
+    
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
   displayName: 'terraform init'
   inputs:
