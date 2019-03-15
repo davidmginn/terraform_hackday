@@ -7,9 +7,7 @@ trigger:
 - master
 
 pr:
-  autoCancel: true
-  branches:
-    include: master
+- master
 
 pool:
   vmImage: Hosted Ubuntu 1604
