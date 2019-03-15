@@ -17,14 +17,14 @@ resource "azurerm_app_service_plan" "slotDemo" {
 }
 
 resource "azurerm_app_service" "slotDemo" {
-    name                = "slotAppService"
+    name                = "TFHackDaySlotAppService"
     location            = "${azurerm_resource_group.slotDemo.location}"
     resource_group_name = "${azurerm_resource_group.slotDemo.name}"
     app_service_plan_id = "${azurerm_app_service_plan.slotDemo.id}"
 }
 
 resource "azurerm_app_service_slot" "slotDemo" {
-    name                = "slotAppServiceSlotOne"
+    name                = "TFHackDaySlotAppServiceSlotOne"
     location            = "${azurerm_resource_group.slotDemo.location}"
     resource_group_name = "${azurerm_resource_group.slotDemo.name}"
     app_service_plan_id = "${azurerm_app_service_plan.slotDemo.id}"
