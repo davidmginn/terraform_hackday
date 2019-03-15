@@ -10,7 +10,7 @@ pr:
 - master
 
 pool:
-  vmImage: Hosted Ubuntu 1604
+  vmImage: Ubuntu-16.04
 steps:
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
   displayName: 'Use Terraform 0.11.11'
